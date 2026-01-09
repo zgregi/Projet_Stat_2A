@@ -1,0 +1,5 @@
+lien du github : https://github.com/facebookresearch/faiss
+
+Faiss contient plusieurs méthodes de mesure de similarité. chaque vecteur est associé à un id et voit sa distance euclidienne comparée avec les autres
+
+~/work/Projet_Stat_2A$ pip install faiss-cpu
