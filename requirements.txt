@@ -1,0 +1,6 @@
+panda
+numpy
+matplotlib
+seaborn
+scipy
+faiss-cpuk
