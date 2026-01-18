@@ -1,6 +1,32 @@
-panda
-numpy
-matplotlib
-seaborn
+# ===============================
+# Dépendances de base (data science)
+# ===============================
+pandas>=2.0.0
+numpy>=1.24.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
 scipy
-faiss-cpuk
+
+# ===============================
+# Vectorisation & NLP
+# ===============================
+sentence-transformers>=2.2.0
+transformers>=4.30.0
+torch>=2.0.0
+faiss-cpu>=1.7.4   # utiliser faiss-gpu si GPU disponible
+tqdm>=4.65.0
+
+# ===============================
+# Machine Learning
+# ===============================
+scikit-learn>=1.3.0
+
+# ===============================
+# Cloud / AWS
+# ===============================
+boto3
+
+# ===============================
+# Base de données
+# ===============================
+# sqlite3 est inclus dans la bibliothèque standard Python

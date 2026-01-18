@@ -2,39 +2,34 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from datetime import datetime
 import warnings
+import sys
+import os
 warnings.filterwarnings('ignore')
 
-# Configuration pour de meilleurs graphiques
-plt.style.use('seaborn-v0_8-darkgrid')
-sns.set_palette("husl")
+from datetime import datetime
 
 # ============================================
 # CHARGEMENT DES DONNÉES
 # ============================================
-# %%
-import pickle
-import os
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 
-# %%
-# Chemin vers le fichier depuis la racine du projet (robuste quel que soit le CWD)
-repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-data_path = os.path.join(repo_root, 'data', 'post_rehydrated.pickle')
+from src import load_dataframe
 
-# Vérifier que le fichier existe
-if not os.path.exists(data_path):
-    raise FileNotFoundError(
-        f"Le fichier post_rehydrated.pickle est introuvable au chemin attendu: {data_path}."
-    )
-
-# %%
 # Charger les données
-with open(data_path, 'rb') as f:
-    data = pickle.load(f)
+data = load_dataframe()
+
+# Dossier de sortie pour les graphiques et CSV
+output_dir = os.path.join('graph', 'univariate')
+os.makedirs(output_dir, exist_ok=True)
+# Vérifier que le fichier existe
+
+
 
 # Dossier de sortie pour les graphiques et CSV : dossier `Univarié` (le dossier du script)
-output_dir = os.path.dirname(__file__)
+output_dir = os.path.join('graph', 'univariate')
 os.makedirs(output_dir, exist_ok=True)
     
 # ============================================
@@ -525,11 +520,20 @@ comparison = pd.DataFrame([
 ])
 
 print(comparison)
-
-# Sauvegarder les résultats
+# ============================================
+# SAUVEGARDE DES RÉSULTATS
+# ============================================
 print("\n=== SAUVEGARDE DES RÉSULTATS ===")
-accounts_unique.to_csv('accounts_unique_analysis.csv', index=False)
-source_accounts_unique.to_csv('source_accounts_unique_analysis.csv', index=False)
-top_suspects.to_csv('top_suspects.csv', index=False)
 
-print("\n✅ Analyse terminée ! Les fichiers CSV et graphiques ont été sauvegardés.")
+# Définir le dossier de sortie pour les CSV
+csv_output_dir = os.path.join(project_root, 'data')
+os.makedirs(csv_output_dir, exist_ok=True)
+
+# Sauvegarder les CSV dans /data
+accounts_unique.to_csv(os.path.join(csv_output_dir, 'accounts_unique_analysis.csv'), index=False)
+source_accounts_unique.to_csv(os.path.join(csv_output_dir, 'source_accounts_unique_analysis.csv'), index=False)
+top_suspects.to_csv(os.path.join(csv_output_dir, 'top_suspects.csv'), index=False)
+
+print(f"\n✅ Analyse terminée !")
+print(f"📊 Graphiques sauvegardés dans : {output_dir}")
+print(f"📁 CSV sauvegardés dans : {csv_output_dir}")

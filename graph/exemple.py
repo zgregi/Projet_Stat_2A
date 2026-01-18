@@ -100,7 +100,8 @@ print(f"nodes : {num_nodes} / edges : {num_edges} / density : {density}")
 # par exemple, on peut calculer le nombre d'associations pour chaque mot. C'est le nombre de degrés.
 # on peut calculer la centralité de degrés, l'intermédiarité (betweeness), la centralité de degré pondérée (eigenvector centrality) etc...
 
-def compute_degrees(G : nx.Graph, col_name : str = "degree") -> dict:
+
+def compute_degrees(G: nx.Graph, col_name: str = "degree") -> dict:
    """
    Compute the degrees of nodes in a graph and assign them as node attributes.
 
